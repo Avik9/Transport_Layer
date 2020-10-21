@@ -111,7 +111,8 @@ A_prev_packet = None
 
 print("B_init Called...")
 
-B_prev_packet = None
+B_prev_recv_packet = None
+B_prev_sent_ack = None
 B_Ack_num = 0
 
 # /* called from layer 5, passed the data to be sent to other side */
@@ -186,23 +187,34 @@ def B_input(packet):
     print("\nB_input Called:\n" + str(packet))
 
     global B_Ack_num
-    new_B_Ack_num = B_Ack_num
+    global B_prev_recv_packet
+    global B_prev_sent_ack
+    
+    ack_pkt = Pkt()
+
 
     if B_Ack_num == packet.seqnum and packet.checksum == calculateChecksum(packet):
         tolayer5(B, packet.payload)
+        B_prev_recv_packet = packet
         printFormat("Inside B_input: RECEIVED CORRECT SEQUENCE NUMBER\nSending to layer 5:\n" + str(packet))
+        
+        ack_pkt.acknum = B_Ack_num
+        B_prev_sent_ack = ack_pkt
+        B_Ack_num = 0 if B_Ack_num == 1 else 1
 
-        new_B_Ack_num = 0 if B_Ack_num == 1 else 1
+    elif B_prev_recv_packet != None and packet.seqnum == B_prev_recv_packet.seqnum and packet.checksum == calculateChecksum(packet) and calculateChecksum(packet) == calculateChecksum(B_prev_recv_packet):
+
+        printFormat("Inside B_input: RECEIVED PREVIOUS SEQUENCE NUMBER")
+        ack_pkt = B_prev_sent_ack
+
     else:
         toPrint = "Inside B_input: IMPROPER SEQUENCE\n" + str(packet)
         toPrint += "\nB_Ack_num == packet.seqnum: " + str(B_Ack_num) + " != " + str(packet.seqnum)
         toPrint += "\npacket.checksum != calculateChecksum(packet): " + str(packet.checksum) + " != " + str(calculateChecksum(packet))
         printFormat(toPrint)
 
+        ack_pkt.acknum = -1
 
-    ack_pkt = Pkt()
-    ack_pkt.acknum = B_Ack_num
-    B_Ack_num = new_B_Ack_num
     ack_pkt.checksum = calculateChecksum(ack_pkt)
     tolayer3(B, ack_pkt)
     printFormat("Inside B_input: \nSending to layer 3: " + str(ack_pkt))
