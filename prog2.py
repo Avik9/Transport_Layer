@@ -104,23 +104,15 @@ class Event():
 # You will use those functions--starttimer, stoptimer, tolayer3, tolayer5--to
 # implement your reliable delivery algorithm.
 
-# Keep a check for seq and ack on their respective sides
-# Keep a payload for previous sent message/packet
-# Keep a check for timer, only 1 should be started at a time
-
-# global A_sequence_num
-# global A_prev_packet
-# global A_is_timer_running
-
-# global B_Ack_num
-# global B_prev_pkt
-
-B_prev_packet = None
-B_Ack_num = 0
+print("A_init Called...")
 
 A_sequence_num = 0
 A_prev_packet = None
-A_is_timer_running = False
+
+print("B_init Called...")
+
+B_prev_packet = None
+B_Ack_num = 0
 
 # /* called from layer 5, passed the data to be sent to other side */
 # This function will be called when the simulator generates application data for
@@ -130,84 +122,96 @@ A_is_timer_running = False
 # Call the tolayer3() function, passing it your new Pkt.
 
 def A_output(message):
+
+    global A_sequence_num
+    global A_prev_packet
+
     print("A_output Called...", message)
-    message_length = len(message.data.decode())
     
     pkt_obj = Pkt()
-    pkt_obj.payload = message.data
-    pkt_obj.checksum = message_length * 8
     pkt_obj.seqnum = A_sequence_num
+    pkt_obj.payload = message.data
+    pkt_obj.checksum = calculateChecksum(pkt_obj)
+
     tolayer3(A, pkt_obj)
+    printFormat("Inside A_output: \nSending to layer 3:\n" + str(pkt_obj))
 
-    if not A_is_timer_running:
-        A_is_timer_running = True
-        starttimer(A, 1)
+    A_prev_packet = pkt_obj
+    starttimer(A, 20)
         
-    A_sequence_num += message_length
-
-
 # /* called from layer 3, when a packet arrives for layer 4 */
 def A_input(packet):
-    print("A_input Called:\n" + str(packet))
+    print("\nA_input Called:\n" + str(packet))
 
-    if packet.acknum != A_sequence_num or isCorrupt(packet):
-       pass
-    elif packet.acknum == A_sequence_num or not isCorrupt(packet):
+    global A_sequence_num
+    # old_A_seq_num = A_sequence_num
+
+    if packet.acknum != A_sequence_num or packet.checksum != calculateChecksum(packet):
+        toPrint = "Inside A_input: IMPROPER ACKNOWLEDGEMENT\n" + str(packet)
+        toPrint += "\npacket.acknum != A_sequence_num: " + str(packet.acknum) + " != " + str(A_sequence_num)
+        toPrint += "\npacket.checksum != calculateChecksum(packet): " + str(packet.checksum) + " != " + str(calculateChecksum(packet))
+        printFormat(toPrint)
+
+       
+    elif packet.acknum == A_sequence_num or packet.checksum == calculateChecksum(packet):
         stoptimer(A)
-        msg_obj = Msg()
-        msg_obj.data = packet.payload
-        tolayer5(A, msg_obj)
-    else:
-       pass
+        
+        # tolayer5(A, packet.payload)
+        printFormat("Inside A_input: RECEIVED CORRECT ACKNOWLEDGEMENT\n" + str(packet))
+
+        A_sequence_num = 0 if A_sequence_num == 1 else 1
+
+    # print("A_seq_num was:", old_A_seq_num, "New A_seq_num:", A_sequence_num)
 
 # /* called when A's timer goes off */
 def A_timerinterrupt():
     print("A_timerinterrupt Called...")
+    
+    global A_prev_packet
+
     # Send the previous packet again
-    tolayer5(A, A_prev_packet)
-    starttimer(A, 1)
+    tolayer3(A, A_prev_packet)
+    printFormat("Inside A_timerinterrupt:\nSending to layer 3:\n" + str(A_prev_packet))
+
+    starttimer(A, 20)
 
 # /* the following routine will be called once (only) before any other */
 # /* entity A routines are called. You can use it to do any initialization */
 def A_init():
-    print("A_init Called...")
-    global A_sequence_num
-    global A_prev_packet
-    global A_is_timer_running
-
-    A_sequence_num = 0
-    A_prev_packet = None
-    A_is_timer_running = False
+    pass
 
 
 # /* called from layer 3, when a packet arrives for layer 4 at B*/
 def B_input(packet):
-    print("B_input Called:\n" + str(packet))
+    print("\nB_input Called:\n" + str(packet))
 
-    message_length = len(packet.payload.decode())
+    global B_Ack_num
+    new_B_Ack_num = B_Ack_num
 
-    if B_Ack_num == packet.seqnum + message_length and not isCorrupt(packet):
-        msg_obj = Msg()
-        msg_obj.data = packet.payload
+    if B_Ack_num == packet.seqnum and packet.checksum == calculateChecksum(packet):
         tolayer5(B, packet.payload)
+        printFormat("Inside B_input: RECEIVED CORRECT SEQUENCE NUMBER\nSending to layer 5:\n" + str(packet))
 
-        B_Ack_num += message_length
+        new_B_Ack_num = 0 if B_Ack_num == 1 else 1
+    else:
+        toPrint = "Inside B_input: IMPROPER SEQUENCE\n" + str(packet)
+        toPrint += "\nB_Ack_num == packet.seqnum: " + str(B_Ack_num) + " != " + str(packet.seqnum)
+        toPrint += "\npacket.checksum != calculateChecksum(packet): " + str(packet.checksum) + " != " + str(calculateChecksum(packet))
+        printFormat(toPrint)
+
 
     ack_pkt = Pkt()
     ack_pkt.acknum = B_Ack_num
-    ack_pkt.checksum = 0
+    B_Ack_num = new_B_Ack_num
+    ack_pkt.checksum = calculateChecksum(ack_pkt)
+    tolayer3(B, ack_pkt)
+    printFormat("Inside B_input: \nSending to layer 3: " + str(ack_pkt))
 
 
 # /* the following rouytine will be called once (only) before any other */
 # /* entity B routines are called. You can use it to do any initialization */
 def B_init():
-    print("B_init Called...")
-    global B_prev_packet
-    global B_Ack_num
-    
-    B_prev_packet = None
-    B_Ack_num = 0
-
+    pass
 
 # /* Note that with simplex transfer from a-to-B, there is no B_output() */
 # IGNORE THE TWO (2) FUNCTIONS BELOW
@@ -221,9 +225,16 @@ def B_timerinterrupt():
     pass
 # IGNORE THE TWO (2) FUNCTIONS ABOVE
 
+def calculateChecksum(packet):
+    ans = packet.acknum + packet.seqnum
 
-def isCorrupt(packet):
-    return packet.checksum == (len(packet.payload.decode()) * 8)
+    for letter in packet.payload.decode():
+        ans += int(ord(letter))
+
+    return ans
+
+def printFormat(toPrint):
+    print("\n\n**********************************************************************\n\n" + toPrint + "\n\n**********************************************************************\n\n")
 
 
 """
