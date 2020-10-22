@@ -126,8 +126,6 @@ def A_output(message):
 
     global A_sequence_num
     global A_prev_packet
-
-    print("A_output Called...", message)
     
     pkt_obj = Pkt()
     pkt_obj.seqnum = A_sequence_num
@@ -135,44 +133,37 @@ def A_output(message):
     pkt_obj.checksum = calculateChecksum(pkt_obj)
 
     tolayer3(A, pkt_obj)
-    printFormat("Inside A_output: \nSending to layer 3:\n" + str(pkt_obj))
+    printFormat("Inside A_output:\nRecieved message: " + str(message.data) + " to send to layer 3\n\nPacket created to send to layer 3:\n" + str(pkt_obj))
 
     A_prev_packet = pkt_obj
     starttimer(A, 20)
         
 # /* called from layer 3, when a packet arrives for layer 4 */
 def A_input(packet):
-    print("\nA_input Called:\n" + str(packet))
 
     global A_sequence_num
-    # old_A_seq_num = A_sequence_num
+
+    toPrint = "Inside A_input:\n\nPacket Recieved:\n" + str(packet)
 
     if packet.acknum != A_sequence_num or packet.checksum != calculateChecksum(packet):
-        toPrint = "Inside A_input: IMPROPER ACKNOWLEDGEMENT\n" + str(packet)
-        toPrint += "\npacket.acknum != A_sequence_num: " + str(packet.acknum) + " != " + str(A_sequence_num)
-        toPrint += "\npacket.checksum != calculateChecksum(packet): " + str(packet.checksum) + " != " + str(calculateChecksum(packet))
-        printFormat(toPrint)
-
+        toPrint += "\n\nINCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped"
        
     elif packet.acknum == A_sequence_num or packet.checksum == calculateChecksum(packet):
         stoptimer(A)
-        
-        # tolayer5(A, packet.payload)
-        printFormat("Inside A_input: RECEIVED CORRECT ACKNOWLEDGEMENT\n" + str(packet))
-
+        toPrint += "\n\nCORRECT ACKNOWLEDGEMENT - Stopped Timer\n\nChanging next expected sequence number from " + str(A_sequence_num) + " to "
         A_sequence_num = 0 if A_sequence_num == 1 else 1
+        toPrint += str(A_sequence_num)
 
-    # print("A_seq_num was:", old_A_seq_num, "New A_seq_num:", A_sequence_num)
+    printFormat(toPrint)
 
 # /* called when A's timer goes off */
 def A_timerinterrupt():
-    print("A_timerinterrupt Called...")
     
     global A_prev_packet
 
     # Send the previous packet again
     tolayer3(A, A_prev_packet)
-    printFormat("Inside A_timerinterrupt:\nSending to layer 3:\n" + str(A_prev_packet))
+    printFormat("Inside A_timerinterrupt:\n\nTimer has been interrupted.\n\nSending previous packet to layer 3:\n" + str(A_prev_packet) + "\n\nTimer Restarted.")
 
     starttimer(A, 20)
 
@@ -184,7 +175,6 @@ def A_init():
 
 # /* called from layer 3, when a packet arrives for layer 4 at B*/
 def B_input(packet):
-    print("\nB_input Called:\n" + str(packet))
 
     global B_Ack_num
     global B_prev_recv_packet
@@ -192,11 +182,13 @@ def B_input(packet):
     
     ack_pkt = Pkt()
 
+    toPrint = "Inside B_input:\n\nPacket Recieved:\n" + str(packet) + "\n\nRECEIVED "
+
 
     if B_Ack_num == packet.seqnum and packet.checksum == calculateChecksum(packet):
         tolayer5(B, packet.payload)
         B_prev_recv_packet = packet
-        printFormat("Inside B_input: RECEIVED CORRECT SEQUENCE NUMBER\nSending to layer 5:\n" + str(packet))
+        toPrint += "EXPECTED PACKET\n\nSending to layer 5:\n" + str(packet.payload)
         
         ack_pkt.acknum = B_Ack_num
         B_prev_sent_ack = ack_pkt
@@ -204,20 +196,17 @@ def B_input(packet):
 
     elif B_prev_recv_packet != None and packet.seqnum == B_prev_recv_packet.seqnum and packet.checksum == calculateChecksum(packet) and calculateChecksum(packet) == calculateChecksum(B_prev_recv_packet):
 
-        printFormat("Inside B_input: RECEIVED PREVIOUS SEQUENCE NUMBER")
+        toPrint += "PREVIOUSLY RECIEVED PACKET - Packet Dropped"
         ack_pkt = B_prev_sent_ack
 
     else:
-        toPrint = "Inside B_input: IMPROPER SEQUENCE\n" + str(packet)
-        toPrint += "\nB_Ack_num == packet.seqnum: " + str(B_Ack_num) + " != " + str(packet.seqnum)
-        toPrint += "\npacket.checksum != calculateChecksum(packet): " + str(packet.checksum) + " != " + str(calculateChecksum(packet))
-        printFormat(toPrint)
-
+        toPrint += "CORRUPTED PACKET - Packet Dropped"
         ack_pkt.acknum = -1
 
     ack_pkt.checksum = calculateChecksum(ack_pkt)
     tolayer3(B, ack_pkt)
-    printFormat("Inside B_input: \nSending to layer 3: " + str(ack_pkt))
+    toPrint += "\n\nSending to layer 3:\n" + str(ack_pkt)
+    printFormat(toPrint)
 
 
 # /* the following rouytine will be called once (only) before any other */
@@ -246,8 +235,8 @@ def calculateChecksum(packet):
     return ans
 
 def printFormat(toPrint):
-    print("\n\n**********************************************************************\n\n" + toPrint + "\n\n**********************************************************************\n\n")
-
+    toPrint = "\n\n" + ("#" * 100) + "\n\n" + toPrint + "\n\n" + ("#" * 100) + "\n\n"
+    print(toPrint)
 
 """
 /*****************************************************************

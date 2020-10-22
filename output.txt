@@ -1,0 +1,2228 @@
+A_init Called...
+B_init Called...
+-----  Stop and Wait Network Simulator Version 1.1 -------- 
+
+
+Enter the number of messages to simulate: 10
+Enter packet loss probability [enter 0.0 for no loss]: 0.1
+Enter packet corruption probability [0.0 for no corruption]: 0.3
+Enter average time between messages from sender's layer5 [ > 0.0]: 1000
+Enter TRACE: 2
+
+--------------
+Event List Follows:
+
+Event time: 934.518476, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 934.5184755505458
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'aaaaaaaaaaaaaaaaaaaa' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 0
+Acknum: -1
+Checksum: 1939
+Payload: b'aaaaaaaaaaaaaaaaaaaa'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 943.947138, type: 2, entity: 1
+
+Event time: 954.518476, type: 0, entity: 0
+
+Event time: 1917.030025, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 943.9471375415235
+Event Entity: Host B
+Packet: Seqnum: 0
+Acknum: -1
+Checksum: 1939
+Payload: b'aaaaaaaaaaaaaaaaaaaa'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 0
+Acknum: -1
+Checksum: 1939
+Payload: b'aaaaaaaaaaaaaaaaaaaa'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'aaaaaaaaaaaaaaaaaaaa'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 949.002641, type: 2, entity: 0
+
+Event time: 954.518476, type: 0, entity: 0
+
+Event time: 1917.030025, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 949.0026410720192
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 0 to 1
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1917.030025, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 1917.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'bbbbbbbbbbbbbbbbbbbb' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1937.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 1937.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1945.159668, type: 2, entity: 1
+
+Event time: 1957.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 1945.1596675434282
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'Zbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'Zbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED CORRUPTED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1955.055557, type: 2, entity: 0
+
+Event time: 1957.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 1955.0555574696507
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1957.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 1957.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1963.846874, type: 2, entity: 1
+
+Event time: 1977.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 1963.8468740112262
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'bbbbbbbbbbbbbbbbbbbb'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1965.876311, type: 2, entity: 0
+
+Event time: 1977.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 1965.8763114124843
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1977.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 1977.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1983.420845, type: 2, entity: 1
+
+Event time: 1997.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 1983.420844673905
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED PREVIOUSLY RECIEVED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1993.097819, type: 2, entity: 0
+
+Event time: 1997.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 1993.0978185056863
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1997.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 1997.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 1998.486710, type: 2, entity: 1
+
+Event time: 2017.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 1998.4867098934276
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'Zbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'Zbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED CORRUPTED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2001.349890, type: 2, entity: 0
+
+Event time: 2017.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2001.3498896078556
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 999999
+Checksum: -2
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 999999
+Checksum: -2
+Payload: b''
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2017.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 2017.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2024.515919, type: 2, entity: 1
+
+Event time: 2037.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2024.5159185151342
+Event Entity: Host B
+Packet: Seqnum: 999999
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 999999
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED CORRUPTED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2030.960925, type: 2, entity: 0
+
+Event time: 2037.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2030.960924596353
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b'Z'
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b'Z'
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2037.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 2037.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2043.588983, type: 2, entity: 1
+
+Event time: 2057.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2043.5889833696042
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED PREVIOUSLY RECIEVED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2048.085394, type: 2, entity: 0
+
+Event time: 2057.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2048.0853940937773
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 999999
+Checksum: 0
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 999999
+Checksum: 0
+Payload: b''
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2057.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 2057.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2063.686200, type: 2, entity: 1
+
+Event time: 2077.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2063.6861997700867
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED PREVIOUSLY RECIEVED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2073.270356, type: 2, entity: 0
+
+Event time: 2077.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2073.2703557252585
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 999999
+Checksum: 0
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 999999
+Checksum: 0
+Payload: b''
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2077.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 2077.030024700763
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2081.644504, type: 2, entity: 1
+
+Event time: 2097.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2081.6445039284363
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 1960
+Payload: b'bbbbbbbbbbbbbbbbbbbb'
+
+RECEIVED PREVIOUSLY RECIEVED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2089.066002, type: 2, entity: 0
+
+Event time: 2097.030025, type: 0, entity: 0
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2089.066001834686
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 1 to 0
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2563.505621, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 2563.5056209931226
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'cccccccccccccccccccc' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 0
+Acknum: -1
+Checksum: 1979
+Payload: b'cccccccccccccccccccc'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2572.040962, type: 2, entity: 1
+
+Event time: 2583.505621, type: 0, entity: 0
+
+Event time: 3050.963183, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2572.040961698857
+Event Entity: Host B
+Packet: Seqnum: 0
+Acknum: -1
+Checksum: 1979
+Payload: b'cccccccccccccccccccc'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 0
+Acknum: -1
+Checksum: 1979
+Payload: b'cccccccccccccccccccc'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'cccccccccccccccccccc'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 2578.803310, type: 2, entity: 0
+
+Event time: 2583.505621, type: 0, entity: 0
+
+Event time: 3050.963183, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 2578.803309981674
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 0 to 1
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 3050.963183, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 3050.9631832723
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'dddddddddddddddddddd' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 2000
+Payload: b'dddddddddddddddddddd'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 3052.804633, type: 2, entity: 1
+
+Event time: 3070.963183, type: 0, entity: 0
+
+Event time: 3340.374679, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 3052.80463264436
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 2000
+Payload: b'dddddddddddddddddddd'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 2000
+Payload: b'dddddddddddddddddddd'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'dddddddddddddddddddd'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 3056.367395, type: 2, entity: 0
+
+Event time: 3070.963183, type: 0, entity: 0
+
+Event time: 3340.374679, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 3056.3673949392605
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 1 to 0
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 3340.374679, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 3340.3746790058526
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'eeeeeeeeeeeeeeeeeeee' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 0
+Acknum: -1
+Checksum: 2019
+Payload: b'eeeeeeeeeeeeeeeeeeee'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 3345.507978, type: 2, entity: 1
+
+Event time: 3360.374679, type: 0, entity: 0
+
+Event time: 4738.783182, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 3345.507977638983
+Event Entity: Host B
+Packet: Seqnum: 0
+Acknum: -1
+Checksum: 2019
+Payload: b'eeeeeeeeeeeeeeeeeeee'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 0
+Acknum: -1
+Checksum: 2019
+Payload: b'eeeeeeeeeeeeeeeeeeee'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'eeeeeeeeeeeeeeeeeeee'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 3354.633516, type: 2, entity: 0
+
+Event time: 3360.374679, type: 0, entity: 0
+
+Event time: 4738.783182, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 3354.6335163222448
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 0 to 1
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 4738.783182, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 4738.783182428559
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'ffffffffffffffffffff' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 2040
+Payload: b'ffffffffffffffffffff'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 4745.663338, type: 2, entity: 1
+
+Event time: 4758.783182, type: 0, entity: 0
+
+Event time: 6257.697319, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 4745.663337875792
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 2040
+Payload: b'ffffffffffffffffffff'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 2040
+Payload: b'ffffffffffffffffffff'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'ffffffffffffffffffff'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 4754.294148, type: 2, entity: 0
+
+Event time: 4758.783182, type: 0, entity: 0
+
+Event time: 6257.697319, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 4754.294148406581
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 1 to 0
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 6257.697319, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 6257.697319495344
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'gggggggggggggggggggg' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 0
+Acknum: -1
+Checksum: 2059
+Payload: b'gggggggggggggggggggg'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 6260.757377, type: 2, entity: 1
+
+Event time: 6277.697319, type: 0, entity: 0
+
+Event time: 8219.212356, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 6260.757377351529
+Event Entity: Host B
+Packet: Seqnum: 0
+Acknum: -1
+Checksum: 2059
+Payload: b'gggggggggggggggggggg'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 0
+Acknum: -1
+Checksum: 2059
+Payload: b'gggggggggggggggggggg'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'gggggggggggggggggggg'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 6263.503219, type: 2, entity: 0
+
+Event time: 6277.697319, type: 0, entity: 0
+
+Event time: 8219.212356, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 6263.503219258763
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 0 to 1
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8219.212356, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 8219.212355604068
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'hhhhhhhhhhhhhhhhhhhh' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 2080
+Payload: b'hhhhhhhhhhhhhhhhhhhh'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8239.212356, type: 0, entity: 0
+
+Event time: 8582.575008, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 8239.212355604068
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 2080
+Payload: b'hhhhhhhhhhhhhhhhhhhh'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8247.096570, type: 2, entity: 1
+
+Event time: 8259.212356, type: 0, entity: 0
+
+Event time: 8582.575008, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 8247.096569535333
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 2080
+Payload: b'hhhhhhhhhhhhhhhhhhhh'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 2080
+Payload: b'hhhhhhhhhhhhhhhhhhhh'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'hhhhhhhhhhhhhhhhhhhh'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8248.117487, type: 2, entity: 0
+
+Event time: 8259.212356, type: 0, entity: 0
+
+Event time: 8582.575008, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 8248.117486605053
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 1 to 0
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8582.575008, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 8582.575008114718
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'iiiiiiiiiiiiiiiiiiii' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 0
+Acknum: -1
+Checksum: 2099
+Payload: b'iiiiiiiiiiiiiiiiiiii'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8586.143685, type: 2, entity: 1
+
+Event time: 8602.575008, type: 0, entity: 0
+
+Event time: 9989.362085, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 8586.143684503686
+Event Entity: Host B
+Packet: Seqnum: 0
+Acknum: -1
+Checksum: 2099
+Payload: b'Ziiiiiiiiiiiiiiiiiii'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 0
+Acknum: -1
+Checksum: 2099
+Payload: b'Ziiiiiiiiiiiiiiiiiii'
+
+RECEIVED CORRUPTED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8595.836687, type: 2, entity: 0
+
+Event time: 8602.575008, type: 0, entity: 0
+
+Event time: 9989.362085, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 8595.836686704059
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: -1
+Checksum: -2
+Payload: b''
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8602.575008, type: 0, entity: 0
+
+Event time: 9989.362085, type: 1, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 8602.575008114718
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 0
+Acknum: -1
+Checksum: 2099
+Payload: b'iiiiiiiiiiiiiiiiiiii'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8606.152121, type: 2, entity: 1
+
+Event time: 8622.575008, type: 0, entity: 0
+
+Event time: 9989.362085, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 8606.152120798659
+Event Entity: Host B
+Packet: Seqnum: 0
+Acknum: -1
+Checksum: 2099
+Payload: b'iiiiiiiiiiiiiiiiiiii'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 0
+Acknum: -1
+Checksum: 2099
+Payload: b'iiiiiiiiiiiiiiiiiiii'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'iiiiiiiiiiiiiiiiiiii'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 8612.937625, type: 2, entity: 0
+
+Event time: 8622.575008, type: 0, entity: 0
+
+Event time: 9989.362085, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 8612.937625216444
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 0
+Checksum: -1
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 0 to 1
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 9989.362085, type: 1, entity: 0
+
+--------------
+
+Event Type: From Layer 5
+Event Time: 9989.36208502749
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_output:
+Recieved message: b'jjjjjjjjjjjjjjjjjjjj' to send to layer 3
+
+Packet created to send to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 9998.396176, type: 2, entity: 1
+
+Event time: 10009.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 9998.396176401966
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+RECEIVED EXPECTED PACKET
+
+Sending to layer 5:
+b'jjjjjjjjjjjjjjjjjjjj'
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 10003.107644, type: 2, entity: 0
+
+Event time: 10009.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 10003.107643666977
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 10009.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 10009.36208502749
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 10015.158894, type: 2, entity: 1
+
+Event time: 10029.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 10015.1588940159
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+RECEIVED PREVIOUSLY RECIEVED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 10019.625326, type: 2, entity: 0
+
+Event time: 10029.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 10019.625325914309
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b'Z'
+
+INCORRECT ACKNOWLEDGEMENT - Acknowledgement Dropped
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 10029.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: Timer Interrupt
+Event Time: 10029.36208502749
+Event Entity: Host A
+Packet: None
+
+
+####################################################################################################
+
+Inside A_timerinterrupt:
+
+Timer has been interrupted.
+
+Sending previous packet to layer 3:
+Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+Timer Restarted.
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 10033.254485, type: 2, entity: 1
+
+Event time: 10049.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 10033.25448505514
+Event Entity: Host B
+Packet: Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+
+####################################################################################################
+
+Inside B_input:
+
+Packet Recieved:
+Seqnum: 1
+Acknum: -1
+Checksum: 2120
+Payload: b'jjjjjjjjjjjjjjjjjjjj'
+
+RECEIVED PREVIOUSLY RECIEVED PACKET - Packet Dropped
+
+Sending to layer 3:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+Event time: 10034.673890, type: 2, entity: 0
+
+Event time: 10049.362085, type: 0, entity: 0
+
+--------------
+
+Event Type: From Layer 3
+Event Time: 10034.673890001905
+Event Entity: Host A
+Packet: Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+
+####################################################################################################
+
+Inside A_input:
+
+Packet Recieved:
+Seqnum: -1
+Acknum: 1
+Checksum: 0
+Payload: b''
+
+CORRECT ACKNOWLEDGEMENT - Stopped Timer
+
+Changing next expected sequence number from 1 to 0
+
+####################################################################################################
+
+
+--------------
+Event List Follows:
+
+--------------
+
+None
+Simulator terminated at time 10034.673890001905
+ after sending 10 msgs from layer5
+

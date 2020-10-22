@@ -1,1 +1,3 @@
-# Transport_Layer
+# Implementing a Reliable Transport Protocol
+
+I started by reading all the documents as suggested. Once I completely understood what the assignment is asking for, I started to run the simulation inorder to see how it worked and how the out put it generated. Then I started by implementing all the methods in their order of being called. Hence, I first implemented the initialization of A and B and then A_output, then B_input, then A_input, and then finally A_timerinterrupt. Even while implementing these functions, I realized I needed to do them slowly and hence I implemented rdt 1.0 first with it's full functionality and made sure that works. Then I implemented rdt 2.0 and then I lastly moved on to rdt 3.0. Once that started working, I started to stress test it with variations in loss % and corruption %. The highest I was able to achieve was send 50 packets with 30% chance of loss and corruption.
