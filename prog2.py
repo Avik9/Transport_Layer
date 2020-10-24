@@ -104,11 +104,13 @@ class Event():
 # You will use those functions--starttimer, stoptimer, tolayer3, tolayer5--to
 # implement your reliable delivery algorithm.
 
+# Here's where I initialize the global variables for A
 print("A_init Called...")
 
 A_sequence_num = 0
 A_prev_packet = None
 
+# Here's where I initialize the global variables for B
 print("B_init Called...")
 
 B_prev_recv_packet = None
@@ -129,6 +131,7 @@ def A_output(message):
     
     pkt_obj = Pkt()
     pkt_obj.seqnum = A_sequence_num
+    pkt_obj.acknum = 2
     pkt_obj.payload = message.data
     pkt_obj.checksum = calculateChecksum(pkt_obj)
 
@@ -181,6 +184,7 @@ def B_input(packet):
     global B_prev_sent_ack
     
     ack_pkt = Pkt()
+    ack_pkt.seqnum = 2
 
     toPrint = "Inside B_input:\n\nPacket Recieved:\n" + str(packet) + "\n\nRECEIVED "
 
@@ -201,7 +205,7 @@ def B_input(packet):
 
     else:
         toPrint += "CORRUPTED PACKET - Packet Dropped"
-        ack_pkt.acknum = -1
+        ack_pkt.acknum = 0 if packet.seqnum == 1 else 1
 
     ack_pkt.checksum = calculateChecksum(ack_pkt)
     tolayer3(B, ack_pkt)
@@ -227,15 +231,19 @@ def B_timerinterrupt():
 # IGNORE THE TWO (2) FUNCTIONS ABOVE
 
 def calculateChecksum(packet):
-    ans = packet.acknum + packet.seqnum
 
-    for letter in packet.payload.decode():
-        ans += int(ord(letter))
+    print("Acknum:", packet.acknum, "SeqNum:", packet.seqnum)
+
+    to_iterate = packet.acknum.to_bytes(5, 'big') + packet.seqnum.to_bytes(5, 'big') + packet.payload
+    ans = 0
+
+    for letter in to_iterate:
+        ans += letter
 
     return ans
 
 def printFormat(toPrint):
-    toPrint = "\n\n" + ("#" * 100) + "\n\n" + toPrint + "\n\n" + ("#" * 100) + "\n\n"
+    toPrint = "\n\n" + ("#" * 48) + " START " + ("#" * 48) + "\n\n" + toPrint + "\n\n" + ("#" * 49) + " END " + ("#" * 49) + "\n\n"
     print(toPrint)
 
 """
