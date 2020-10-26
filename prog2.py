@@ -131,7 +131,6 @@ def A_output(message):
     
     pkt_obj = Pkt()
     pkt_obj.seqnum = A_sequence_num
-    pkt_obj.acknum = 2
     pkt_obj.payload = message.data
     pkt_obj.checksum = calculateChecksum(pkt_obj)
 
@@ -184,10 +183,8 @@ def B_input(packet):
     global B_prev_sent_ack
     
     ack_pkt = Pkt()
-    ack_pkt.seqnum = 2
 
     toPrint = "Inside B_input:\n\nPacket Recieved:\n" + str(packet) + "\n\nRECEIVED "
-
 
     if B_Ack_num == packet.seqnum and packet.checksum == calculateChecksum(packet):
         tolayer5(B, packet.payload)
@@ -231,14 +228,10 @@ def B_timerinterrupt():
 # IGNORE THE TWO (2) FUNCTIONS ABOVE
 
 def calculateChecksum(packet):
+    ans = packet.acknum + packet.seqnum
 
-    print("Acknum:", packet.acknum, "SeqNum:", packet.seqnum)
-
-    to_iterate = packet.acknum.to_bytes(5, 'big') + packet.seqnum.to_bytes(5, 'big') + packet.payload
-    ans = 0
-
-    for letter in to_iterate:
-        ans += letter
+    for letter in packet.payload.decode():
+        ans += int(ord(letter))
 
     return ans
 
